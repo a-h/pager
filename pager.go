@@ -1,11 +1,11 @@
 package pager
 
-// New creates a pager to iterate through pages of strings.
-func New(data []string, pageSize int) chan []string {
+// New creates a pager to iterate through pages.
+func New[T any](data []T, pageSize int) chan []T {
 	if pageSize < 1 {
 		panic("page size cannot be less than zero")
 	}
-	rv := make(chan []string)
+	rv := make(chan []T)
 	var index int
 	go func() {
 		for {
