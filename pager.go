@@ -5,7 +5,7 @@ package pager
 // of slightly worse syntax.
 func Channel[T any](data []T, pageSize int) chan []T {
 	if pageSize < 1 {
-		panic("page size cannot be less than zero")
+		panic("page size cannot be <= 0")
 	}
 	rv := make(chan []T)
 	go func() {
@@ -29,7 +29,7 @@ func Channel[T any](data []T, pageSize int) chan []T {
 // It's 20x faster than the channel variant, using fewer allocations.
 func Func[T any](data []T, pageSize int, f func([]T) error) (err error) {
 	if pageSize < 1 {
-		panic("page size cannot be less than zero")
+		panic("page size cannot be <= 0")
 	}
 	pages, remainder := len(data)/pageSize, len(data)%pageSize
 	if remainder > 0 {
